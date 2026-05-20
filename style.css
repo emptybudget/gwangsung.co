@@ -58,7 +58,15 @@ h3 { font-size: 16px; }
 }
 
 .banner .title { font-size: 32px; display: block; }
-.banner .subtitle { font-size: 14px; color: #ffffff; letter-spacing: 2px; }
+.banner .subtitle { font-size: 14px; color: #ffffff; letter-spacing: 2px; display: block; margin-top: 6px; }
+
+.banner .logo {
+  display: block;
+  max-width: 480px;
+  width: 80%;
+  height: auto;
+  margin: 0 auto;
+}
 
 /* Top navigation - mimics Netscape directory buttons */
 .navbar {
