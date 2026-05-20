@@ -1,0 +1,189 @@
+/* 광성흥업 - retro Netscape styling */
+
+body {
+  background-color: #c0c0c0;
+  color: #000000;
+  font-family: "Times New Roman", Times, serif;
+  font-size: 14px;
+  margin: 8px;
+  padding: 0;
+}
+
+a:link    { color: #0000ee; text-decoration: underline; }
+a:visited { color: #551a8b; text-decoration: underline; }
+a:active  { color: #ff0000; text-decoration: underline; }
+
+h1, h2, h3 {
+  font-family: "Times New Roman", Times, serif;
+  font-weight: bold;
+  margin: 12px 0 8px 0;
+}
+
+h1 { font-size: 28px; text-align: center; }
+h2 { font-size: 20px; border-bottom: 1px solid #808080; padding-bottom: 2px; }
+h3 { font-size: 16px; }
+
+/* Beveled box - the classic Win95/Netscape look */
+.bevel-out {
+  border-top:    2px solid #ffffff;
+  border-left:   2px solid #ffffff;
+  border-right:  2px solid #808080;
+  border-bottom: 2px solid #808080;
+  background-color: #c0c0c0;
+  padding: 8px;
+}
+
+.bevel-in {
+  border-top:    2px solid #808080;
+  border-left:   2px solid #808080;
+  border-right:  2px solid #ffffff;
+  border-bottom: 2px solid #ffffff;
+  background-color: #c0c0c0;
+  padding: 8px;
+}
+
+/* Page header banner */
+.banner {
+  background-color: #000080;
+  color: #ffff00;
+  text-align: center;
+  padding: 16px;
+  font-family: "Times New Roman", Times, serif;
+  font-weight: bold;
+  letter-spacing: 4px;
+  border-top:    2px solid #ffffff;
+  border-left:   2px solid #ffffff;
+  border-right:  2px solid #404040;
+  border-bottom: 2px solid #404040;
+}
+
+.banner .title { font-size: 32px; display: block; }
+.banner .subtitle { font-size: 14px; color: #ffffff; letter-spacing: 2px; }
+
+/* Top navigation - mimics Netscape directory buttons */
+.navbar {
+  margin: 6px 0;
+  padding: 4px;
+  background-color: #c0c0c0;
+  border-top:    1px solid #ffffff;
+  border-bottom: 1px solid #808080;
+}
+
+.navbar a {
+  display: inline-block;
+  padding: 4px 12px;
+  margin: 2px;
+  background-color: #c0c0c0;
+  color: #000000;
+  text-decoration: none;
+  font-size: 12px;
+  font-weight: bold;
+  border-top:    2px solid #ffffff;
+  border-left:   2px solid #ffffff;
+  border-right:  2px solid #808080;
+  border-bottom: 2px solid #808080;
+}
+
+.navbar a:active {
+  border-top:    2px solid #808080;
+  border-left:   2px solid #808080;
+  border-right:  2px solid #ffffff;
+  border-bottom: 2px solid #ffffff;
+}
+
+/* Content table for member/music listings */
+table.classic {
+  border-collapse: collapse;
+  width: 100%;
+  background-color: #ffffff;
+}
+
+table.classic th {
+  background-color: #000080;
+  color: #ffffff;
+  padding: 4px 8px;
+  text-align: left;
+  border: 1px solid #000000;
+}
+
+table.classic td {
+  padding: 6px 8px;
+  border: 1px solid #808080;
+  vertical-align: top;
+}
+
+table.classic tr:nth-child(even) td {
+  background-color: #e8e8e8;
+}
+
+/* Member card */
+.member-card {
+  background-color: #ffffff;
+  padding: 10px;
+  margin: 8px 0;
+  border-top:    2px solid #ffffff;
+  border-left:   2px solid #ffffff;
+  border-right:  2px solid #808080;
+  border-bottom: 2px solid #808080;
+}
+
+.member-card h3 {
+  margin-top: 0;
+  color: #000080;
+}
+
+/* Footer */
+.footer {
+  margin-top: 24px;
+  padding: 8px;
+  text-align: center;
+  font-size: 11px;
+  color: #404040;
+  border-top: 1px solid #808080;
+}
+
+.counter {
+  display: inline-block;
+  background-color: #000000;
+  color: #00ff00;
+  font-family: "Courier New", Courier, monospace;
+  font-weight: bold;
+  padding: 2px 6px;
+  border: 1px inset #c0c0c0;
+  letter-spacing: 2px;
+}
+
+.under-construction {
+  background-color: #ffff00;
+  color: #000000;
+  padding: 6px 12px;
+  display: inline-block;
+  font-weight: bold;
+  border: 2px dashed #000000;
+  font-size: 12px;
+}
+
+hr.fancy {
+  border: 0;
+  height: 4px;
+  background-color: #000080;
+  margin: 16px 0;
+}
+
+.blink-fallback {
+  color: #ff0000;
+  font-weight: bold;
+}
+
+ul.dot li::marker {
+  content: "▸ ";
+  color: #000080;
+}
+
+blockquote.note {
+  background-color: #ffffe0;
+  border-left: 4px solid #808000;
+  padding: 8px 12px;
+  margin: 12px 0;
+  font-style: italic;
+}
