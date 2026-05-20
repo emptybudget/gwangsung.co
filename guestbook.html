@@ -26,57 +26,56 @@
   <div class="bevel-out">
     <p>
       광성흥업을 찾아주신 분들의 한 마디입니다.
-      방명록에 글을 남기시려면 아래 이메일로 보내주세요 &mdash;
-      <a href="mailto:webmaster@gwangsung.co?subject=방명록">webmaster@gwangsung.co</a>
-    </p>
-    <p>
-      <i>(자동 글쓰기 폼은 준비 중입니다. 지금은 수동으로 업데이트됩니다.)</i>
+      아래 양식에 닉네임과 메시지를 남겨주세요!
     </p>
   </div>
 
   <hr class="fancy">
 
-  <div class="bevel-in" style="background-color:#ffffff;">
-    <p>
-      <b>[42] 익명의 방문자</b> &mdash; <small>2026.05.20</small><br>
-      홈페이지 오픈 축하드립니다! 90년대 감성이 그대로네요. 신곡 기대하고 있습니다.
-    </p>
-    <hr>
-    <p>
-      <b>[41] PC통신세대</b> &mdash; <small>2026.05.19</small><br>
-      이런 디자인 정말 오랜만이에요. 모뎀 연결음이 들리는 것 같습니다 &mdash; 삐~ 끼리리릭~
-    </p>
-    <hr>
-    <p>
-      <b>[40] 인터넷익스플로러5</b> &mdash; <small>2026.05.18</small><br>
-      &lt;blink&gt;환영합니다!&lt;/blink&gt;
-    </p>
-    <hr>
-    <p>
-      <b>[39] webmaster</b> &mdash; <small>2026.05.17</small><br>
-      방명록 첫 글입니다. 자유롭게 글 남겨주세요!
-    </p>
-  </div>
+  <h2>★ 글 남기기 ★</h2>
+
+  <form id="gb-form" class="bevel-in" autocomplete="off">
+    <table cellpadding="6" cellspacing="0" style="width:100%;">
+      <tr>
+        <td width="100"><b>닉네임:</b></td>
+        <td><input type="text" id="gb-nickname" name="nickname" maxlength="30" size="30" required style="font-family:'Courier New',monospace;font-size:13px;padding:3px;"></td>
+      </tr>
+      <tr>
+        <td valign="top"><b>메시지:</b></td>
+        <td><textarea id="gb-message" name="message" maxlength="500" rows="4" cols="50" required style="font-family:'Courier New',monospace;font-size:13px;padding:3px;width:90%;"></textarea></td>
+      </tr>
+      <!-- honeypot -->
+      <tr style="position:absolute;left:-9999px;" aria-hidden="true">
+        <td><label>Website</label></td>
+        <td><input type="text" name="website" tabindex="-1" autocomplete="off"></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td>
+          <button type="submit" id="gb-submit" style="font-family:'Times New Roman',serif;font-size:14px;padding:4px 16px;background-color:#c0c0c0;border-top:2px solid #ffffff;border-left:2px solid #ffffff;border-right:2px solid #808080;border-bottom:2px solid #808080;cursor:pointer;font-weight:bold;">
+            [ 작 성 ]
+          </button>
+          <span id="gb-status" style="margin-left:12px;font-size:12px;"></span>
+        </td>
+      </tr>
+    </table>
+  </form>
 
   <hr class="fancy">
 
-  <h2>★ 글 남기는 방법 ★</h2>
+  <h2>★ 방문자들의 한 마디 ★</h2>
 
-  <ol>
-    <li>아래 이메일을 클릭하세요: <a href="mailto:webmaster@gwangsung.co?subject=방명록">webmaster@gwangsung.co</a></li>
-    <li>제목에 "방명록"이라고 적어주세요.</li>
-    <li>본문에 닉네임과 한 마디를 적어주세요.</li>
-    <li>웹마스터가 확인 후 페이지에 올려드립니다.</li>
-  </ol>
+  <div id="gb-entries" class="bevel-in" style="background-color:#ffffff;min-height:120px;">
+    <p style="text-align:center;color:#808080;font-style:italic;">방명록을 불러오는 중...</p>
+  </div>
+
+  <hr class="fancy">
 
   <center>
-    <span class="under-construction">✉ 자동 방명록 시스템 준비 중 ✉</span>
+    <span class="under-construction">✉ 욕설 / 광고는 예고 없이 삭제됩니다 ✉</span>
   </center>
 
   <div class="footer">
-    <p>
-      You are visitor #<span class="counter">00000042</span>
-    </p>
     <p>
       <a href="index.html">[ &lt;&lt; HOME으로 돌아가기 ]</a>
     </p>
@@ -84,6 +83,105 @@
       &copy; 1996-2026 광성흥업. All rights reserved.
     </p>
   </div>
+
+  <script>
+    const entriesEl = document.getElementById("gb-entries");
+    const form = document.getElementById("gb-form");
+    const statusEl = document.getElementById("gb-status");
+    const submitBtn = document.getElementById("gb-submit");
+
+    function escapeHtml(s) {
+      return String(s)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#39;");
+    }
+
+    function formatDate(iso) {
+      const d = new Date(iso);
+      if (isNaN(d)) return "";
+      const yyyy = d.getFullYear();
+      const mm = String(d.getMonth() + 1).padStart(2, "0");
+      const dd = String(d.getDate()).padStart(2, "0");
+      const hh = String(d.getHours()).padStart(2, "0");
+      const mi = String(d.getMinutes()).padStart(2, "0");
+      return `${yyyy}.${mm}.${dd} ${hh}:${mi}`;
+    }
+
+    async function loadEntries() {
+      try {
+        const res = await fetch("/api/guestbook", { cache: "no-store" });
+        if (!res.ok) throw new Error("불러오기 실패");
+        const data = await res.json();
+        renderEntries(data.entries || []);
+      } catch (err) {
+        entriesEl.innerHTML = '<p style="color:#aa0000;text-align:center;">방명록을 불러올 수 없습니다. 잠시 후 다시 시도해주세요.</p>';
+      }
+    }
+
+    function renderEntries(entries) {
+      if (entries.length === 0) {
+        entriesEl.innerHTML = '<p style="text-align:center;color:#808080;font-style:italic;">아직 방명록이 비어 있습니다. 첫 방문자가 되어주세요!</p>';
+        return;
+      }
+      const total = entries.length;
+      const html = entries.map((e, i) => {
+        const num = String(total - i).padStart(2, "0");
+        const nick = escapeHtml(e.nickname || "익명");
+        const msg = escapeHtml(e.message || "").replace(/\n/g, "<br>");
+        const when = formatDate(e.at);
+        return `
+          <p>
+            <b>[${num}] ${nick}</b> &mdash; <small>${when}</small><br>
+            ${msg}
+          </p>
+          <hr>
+        `;
+      }).join("");
+      entriesEl.innerHTML = html;
+    }
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const nickname = document.getElementById("gb-nickname").value.trim();
+      const message = document.getElementById("gb-message").value.trim();
+      const website = form.querySelector('input[name="website"]').value;
+
+      if (!nickname || !message) {
+        statusEl.textContent = "닉네임과 메시지를 모두 입력해주세요.";
+        statusEl.style.color = "#aa0000";
+        return;
+      }
+
+      submitBtn.disabled = true;
+      statusEl.textContent = "전송 중...";
+      statusEl.style.color = "#000080";
+
+      try {
+        const res = await fetch("/api/guestbook", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ nickname, message, website }),
+        });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error || "전송 실패");
+        statusEl.textContent = "★ 등록 완료! ★";
+        statusEl.style.color = "#008000";
+        document.getElementById("gb-message").value = "";
+        await loadEntries();
+      } catch (err) {
+        statusEl.textContent = err.message || "전송 실패";
+        statusEl.style.color = "#aa0000";
+      } finally {
+        submitBtn.disabled = false;
+        setTimeout(() => { statusEl.textContent = ""; }, 4000);
+      }
+    });
+
+    loadEntries();
+  </script>
 
 </body>
 </html>
